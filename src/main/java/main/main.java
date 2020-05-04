@@ -5,6 +5,8 @@
  */
 package main;
 
+import ClientesDAO.ClientesDAO;
+import Entidades.POJO;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,6 +20,9 @@ public class main {
         Scanner sn = new Scanner(System.in);
         boolean salir = false;
         int opcion; 
+        ClientesDAO Clientes = null;
+        POJO cliente1 = null;
+        Clientes = new ClientesDAO();
  
         while (!salir) {
  
@@ -45,7 +50,8 @@ public class main {
                     break;
                     
                     case 3:
-                        
+                        Clientes.insert(cliente1);
+                        System.out.println(cliente1);
                     break;
                     
                     case 4:

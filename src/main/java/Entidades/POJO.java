@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author heidi
  */
-public class Entidades {
+public class POJO {
     public Integer id;
     public String codigo;
     public String empresa;
@@ -23,7 +23,7 @@ public class Entidades {
     public Integer telefono;
     public Integer fax;
 
-    public Entidades(Integer id, String codigo, String empresa, String contacto, String cargo_contacto, String direccion, String ciudad, String region, Integer cp, String pais, Integer telefono, Integer fax) {
+    public POJO(Integer id, String codigo, String empresa, String contacto, String cargo_contacto, String direccion, String ciudad, String region, Integer cp, String pais, Integer telefono, Integer fax) {
         this.id = id;
         this.codigo = codigo;
         this.empresa = empresa;
@@ -38,7 +38,7 @@ public class Entidades {
         this.fax = fax;
     }
 
-    public Entidades() {
+    public POJO() {
     }
 
     public Integer getId() {
