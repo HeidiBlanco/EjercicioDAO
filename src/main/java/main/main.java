@@ -42,7 +42,8 @@ public class main {
                 switch (opcion) {
                    
                     case 1:
-                       
+                        
+                        System.out.println(cliente1);
                     break;
                     
                     case 2:
