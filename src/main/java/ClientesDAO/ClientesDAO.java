@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * @author heidi
  */
 public class ClientesDAO {
+
   private Connection conexion = null;
 
     //ESTABLECER CONEXION
@@ -34,7 +35,7 @@ public class ClientesDAO {
         return conexion;
     }
     //MOSTRAR LOS CLIENTES
-    public ArrayList<POJO> listar(Integer desde,Integer limite){
+    public ArrayList<POJO> lista(Integer desde,Integer limite){
         POJO cliente = null;
         PreparedStatement stmt = null;
         ArrayList<POJO> lista = new ArrayList<>();
@@ -105,60 +106,16 @@ public class ClientesDAO {
     }
     
     //INTRODUCIR REGISTROS
-    public Boolean insert(POJO cliente){ 
-      Boolean resultado = false;
-      PreparedStatement stm = null;
-      
-        if (this.conexion == null || cliente == null) {
-            return null;
-        }
-        String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-    try{
-        stm = conexion.prepareStatement(sql);
-              stm.setString(1, cliente.getCodigo());
-              stm.setString(2, cliente.getEmpresa());
-              stm.setString(3, cliente.getContacto());
-              stm.setString(4, cliente.getCargo_contacto());
-              stm.setString(5, cliente.getDireccion());
-              stm.setString(6, cliente.getCiudad());
-              stm.setString(7, cliente.getRegion());
-              stm.setInt(8, cliente.getCp());
-              stm.setString(9, cliente.getPais());
-              stm.setInt(10, cliente.getTelefono());
-              stm.setInt(11, cliente.getFax());
-              stm.executeUpdate();
-
-            if (stm.executeUpdate() > 0) {
-                resultado = true;
-            }
-            
-        }catch (SQLException e) {
-           System.out.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
-      }finally{
-          try{
-              if (stm != null){
-              stm.close();
-          } 
-          }catch (SQLException e) {
-             System.err.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
-          }
-          }
-      return resultado;
-  
- }
-     //MODIFICACION DE REGISTROS
-    public Boolean update(POJO cliente) {
-        Boolean resultado = null;
+     public Boolean insert(POJO cliente){     
         PreparedStatement stmt = null;
-
-        if (this.conexion == null || cliente == null) {
-            return false;
-        }
+        Boolean resultado = false;
+        
+        if (this.conexion == null || cliente == null){
+            return null;
+        }        
         try {
-            String query = "UPDATE empleados SET nombre = ?, apellido1 = ?, apellido2 = ?, extension = ?"
-            + ", email = ?, codigooficina = ?, codigojefe = ?, puesto = ? WHERE codigoempleado = ?";
-            
-            stmt = conexion.prepareStatement(query);
+            String query = "INSERT INTO clientes(codigo,empresa,contacto,cargo_contacto,direccion,ciudad,region,cp,pais,telefono,fax) values(?,?,?,?,?,?,?,?,?,?,?)";
+            stmt = conexion.prepareStatement(query);             
             stmt.setString(1,cliente.getCodigo());
             stmt.setString(2,cliente.getEmpresa());
             stmt.setString(3,cliente.getContacto());
@@ -169,12 +126,12 @@ public class ClientesDAO {
             stmt.setInt(8,cliente.getCp());
             stmt.setString(9,cliente.getPais());
             stmt.setInt(10,cliente.getTelefono());
-            stmt.setInt(11,cliente.getFax());   
+            stmt.setInt(11,cliente.getFax());            
             if (stmt.executeUpdate() > 0) {
                 resultado = true;
-            }            
+            }
         } catch (SQLException e) {
-            System.err.println("Error en el Update: " + e.getMessage()+ " SQL:" + stmt.toString());
+            System.out.println("Error en el insert: "+e.getMessage()+"\nQuery: "+stmt.toString());
         } finally {
             try {
                 if (stmt != null) {
@@ -186,23 +143,53 @@ public class ClientesDAO {
         }
         return resultado;
     }
-    
-    //BORRADO DE REGISTROS
-    public Boolean delete(Integer idCliente) {
-        Boolean resultado = false;
-        PreparedStatement stmt = null;
-        try {
-            String sql = "DELETE FROM clientes WHERE id = ?";
-            stmt = conexion.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
-            resultado = stmt.execute();
-            stmt.close();
-            System.out.println();
-        } catch (SQLException e) {
-            System.err.println("Error en el delete: " + e.getMessage() + " " + stmt.toString());
+     //MODIFICAR CLIENTES
+    public Boolean update(POJO cliente) {
+        Boolean resultado = null;
+        PreparedStatement stm = null;
+
+        if (this.conexion == null || cliente == null) {
+            return false;
         }
+
+        try {
+            String sql = "UPDATE cliente SET codigo=?, empresa=?, contacto=?, cargo_contacto=?"
+            + ", direccion=?, ciudad=?, region=?, cp=?, pais=?, telefono=?, fax=? WHERE id=?";
+
+            stm = conexion.prepareStatement(sql);
+            
+            stm.setString(1, cliente.getCodigo());
+            stm.setString(2, cliente.getEmpresa());
+            stm.setString(3, cliente.getContacto());
+            stm.setString(4, cliente.getCargo_contacto());
+            stm.setString(5, cliente.getDireccion());
+            stm.setString(6, cliente.getCiudad());
+            stm.setString(7, cliente.getRegion());
+            stm.setInt(8, cliente.getCp());
+            stm.setString(9, cliente.getPais());
+            stm.setInt(10, cliente.getTelefono());
+            stm.setInt(11, cliente.getFax());
+            stm.setInt(12, cliente.getId());
+            
+            stm.executeUpdate();
+            
+            
+        } catch (SQLException e) {
+            System.err.println("Error en el Update: " + e.getMessage());
+            
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+
         return resultado;
-    }   
+    }
+
     //MAXIMO
         public Integer maximo() {
         POJO cliente = null;
@@ -225,8 +212,3 @@ public class ClientesDAO {
         return id;
     }
 }
-      //FILTRADO DE CLIENTES
-       /*  public static void Filtrar{
-
-        
-}*/
