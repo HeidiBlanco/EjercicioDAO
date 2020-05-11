@@ -58,10 +58,10 @@ public class ClientesDAO {
                     rs.getString("direccion"),
                     rs.getString("ciudad"),
                     rs.getString("region"),
-                    rs.getInt("cp"),
+                    rs.getString("cp"),
                     rs.getString("pais"),
-                    rs.getInt("telefono"),
-                    rs.getInt("fax")
+                    rs.getString("telefono"),
+                    rs.getString("fax")
                 );  
                 lista.add(cliente);
             }        
@@ -92,10 +92,10 @@ public class ClientesDAO {
                     rs.getString("direccion"),
                     rs.getString("ciudad"),
                     rs.getString("region"),
-                    rs.getInt("cp"),
+                    rs.getString("cp"),
                     rs.getString("pais"),
-                    rs.getInt("telefono"),
-                    rs.getInt("fax")
+                    rs.getString("telefono"),
+                    rs.getString("fax")
                 );              
             }
             stmt.close();
@@ -123,10 +123,10 @@ public class ClientesDAO {
             stmt.setString(5,cliente.getDireccion());
             stmt.setString(6,cliente.getCiudad());
             stmt.setString(7,cliente.getRegion());
-            stmt.setInt(8,cliente.getCp());
+            stmt.setString(8,cliente.getCp());
             stmt.setString(9,cliente.getPais());
-            stmt.setInt(10,cliente.getTelefono());
-            stmt.setInt(11,cliente.getFax());            
+            stmt.setString(10,cliente.getTelefono());
+            stmt.setString(11,cliente.getFax());            
             if (stmt.executeUpdate() > 0) {
                 resultado = true;
             }
@@ -165,10 +165,10 @@ public class ClientesDAO {
             stm.setString(5, cliente.getDireccion());
             stm.setString(6, cliente.getCiudad());
             stm.setString(7, cliente.getRegion());
-            stm.setInt(8, cliente.getCp());
+            stm.setString(8, cliente.getCp());
             stm.setString(9, cliente.getPais());
-            stm.setInt(10, cliente.getTelefono());
-            stm.setInt(11, cliente.getFax());
+            stm.setString(10, cliente.getTelefono());
+            stm.setString(11, cliente.getFax());
             stm.setInt(12, cliente.getId());
             
             stm.executeUpdate();
@@ -188,6 +188,29 @@ public class ClientesDAO {
         }
 
         return resultado;
+    }
+   public Boolean delete(Integer id) {
+        Boolean resultado = false;
+        PreparedStatement stm = null;
+
+        try {
+            String sql = "DELETE FROM clientes WHERE id = ?";
+            stm = conexion.prepareStatement(sql);
+            stm.setInt(1, id);
+
+            resultado = stm.execute();
+
+            stm.close();
+
+            System.out.println();
+
+        } catch (SQLException e) {
+
+            System.err.println("Error en el Delete: " + e.getMessage() + " " + stm.toString());
+        }
+        
+        return resultado;
+
     }
 
     //MAXIMO

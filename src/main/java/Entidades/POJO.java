@@ -14,16 +14,19 @@ public class POJO {
     public String codigo;
     public String empresa;
     public String contacto;
+     public String cp;
+     public String ciudad;
+     public String pais;
+    public String telefono;
+    public String fax;
     public String cargo_contacto;
     public String direccion;
-    public String ciudad;
     public String region;
-    public Integer cp;
-    public String pais;
-    public Integer telefono;
-    public Integer fax;
 
-    public POJO(Integer id, String codigo, String empresa, String contacto, String cargo_contacto, String direccion, String ciudad, String region, Integer cp, String pais, Integer telefono, Integer fax) {
+    public POJO() {
+    }
+
+    public POJO(Integer id, String codigo, String empresa, String contacto, String cargo_contacto, String direccion, String ciudad, String region, String cp, String pais, String telefono, String fax) {
         this.id = id;
         this.codigo = codigo;
         this.empresa = empresa;
@@ -36,9 +39,6 @@ public class POJO {
         this.pais = pais;
         this.telefono = telefono;
         this.fax = fax;
-    }
-
-    public POJO() {
     }
 
     public Integer getId() {
@@ -105,11 +105,11 @@ public class POJO {
         this.region = region;
     }
 
-    public Integer getCp() {
+    public String getCp() {
         return cp;
     }
 
-    public void setCp(Integer cp) {
+    public void setCp(String cp) {
         this.cp = cp;
     }
 
@@ -121,28 +121,23 @@ public class POJO {
         this.pais = pais;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public Integer getFax() {
+    public String getFax() {
         return fax;
     }
 
-    public void setFax(Integer fax) {
+    public void setFax(String fax) {
         this.fax = fax;
     }
 
-    @Override
-    public String toString() {
-        return "id=" + id + ", codigo=" + codigo + ", empresa=" + empresa + ", contacto=" + contacto + ", cargo_contacto=" + cargo_contacto + ", direccion=" + direccion + ", ciudad=" + ciudad + ", region=" + region + ", cp=" + cp + ", pais=" + pais + ", telefono=" + telefono + ", fax=" + fax + '}';
+     public String toString() {
+        return String.format("  %1s    %5s\t    %-38s  %-21s\t  %-8s\t %10s\t %-12s \t%-18s  %14s ",id,codigo,empresa,contacto,cp,ciudad,pais,telefono,fax);
     }
-    
-    
-    
-    
 }

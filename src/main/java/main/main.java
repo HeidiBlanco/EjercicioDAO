@@ -19,17 +19,17 @@ import java.util.Scanner;
 public class main {
      public static void main(String[] args) throws IOException {
         ClientesDAO clientes = new ClientesDAO();      
-        POJO entidades = new POJO();
+        POJO cliente = new POJO();
         Scanner sc=new Scanner(System.in); 
-        int salida=1;
-        boolean salir = false;
-        int sum10=0;     
-       
-      
+       //VISUALIZAR CLIENTES
+        boolean salir = false;    
+        int sum = 0;
+        
+        listaClientes(cliente,clientes,0,10); 
         while (!salir) {
             //MENU
              System.out.println("---------------------------------------------------|");
-           System.out.println("                |EJERCICIO DAO|                    |");
+           System.out.println("                *MENU*                             |");
             System.out.println("---------------------------------------------------|");
            System.out.println("1.- Visualizar los diez siguientes                 |");
            System.out.println("2.- Visualizar los diez anteriores                 |");
@@ -44,18 +44,18 @@ public class main {
             try {
                 switch (opcion) {
                     case 1:
-                    sum10+=10;
-                     if (sum10 > clientes.maximo()){//Los 10 primeros 
-                    sum10=0;
-                    listaClientes(entidades,clientes,sum10,10);
-                            }   
+                     sum+=10;//LOS 1O SIGUIENTES
+                   if (sum >= clientes.maximo()){sum=0;
+                   }
+                    listaClientes(cliente,clientes,sum,10);
+                              
                     break;
                     case 2:
-                    sum10-=10;//Los 10 anteriores
-                    if(sum10<0){
-                    sum10=0;
-                    listaClientes(entidades,clientes,sum10,10);
-                            }        
+                      sum-=10;//LOS 10 ANTERIORES
+                            if(sum<0){sum=0;
+                   }
+                    listaClientes(cliente,clientes,sum,10);
+                   
                     break;
                     case 3:
                     introducirDatosCliente();
@@ -76,23 +76,24 @@ public class main {
                     
                     default:
                         System.out.println("Solo números del 1 al 4");
-                      }                           
-                salida=0;    
-            } catch(java.lang.NumberFormatException error) {
-                System.out.println("ERROR,introduce un numero.");
-                salida=1;
-            }            
-        } while(salida==1);                
-     }    
-           public static void listaClientes(POJO entidades, ClientesDAO clientes,Integer desde,Integer hasta){
-        System.out.println("|----------------------------------------------------------------------------------------------------------------------|");
+                      }                               
+              } catch (InputMismatchException e) {
+                System.out.println("Debes insertar un número");
+                sc.next();
+            }
+        }
+    }
+    
+       
+           public static void listaClientes(POJO cliente, ClientesDAO clientes,Integer desde,Integer hasta){
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------"); 
         				
-        System.out.println("|   Id  |  Codigo |   Empresa  |   Contacto  |   Cargo   |  CódigoPostal  |  Ciudad  |   Pais   |  Telefono  |   Fax   | ");
-        
-        System.out.println("|----------------------------------------------------------------------------------------------------------------------|"); 
-        clientes.lista(desde,hasta).forEach((cliente2) -> {    
+        System.out.println(" ID |  CODIGO    |         EMPRESA                    |        CONTACTO          |   CODIGO POSTAL   |    CIUDAD    |     PAIS      |     TELEFONO     |          FAX  "); 
+        System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");  
+        clientes.lista(desde,hasta).forEach((cliente2) -> {                                                                                          
             System.out.println(cliente2);
         });      
+          System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------"); 
            
     }
    
@@ -123,16 +124,16 @@ public class main {
         cliente.setRegion(sc.nextLine());
 
         System.out.print("Introducir el codigo postal del Cliente: ");
-        cliente.setCp(sc.nextInt());
+        cliente.setCp(sc.nextLine());
         
         System.out.print("Introducir el Pais del Cliente: ");
         cliente.setPais(sc.nextLine());
         
         System.out.print("Introducir el telefono del Cliente: ");
-        cliente.setTelefono(sc.nextInt());
+        cliente.setTelefono(sc.next());
         
         System.out.print("Introducir el Fax del Cliente: ");
-        cliente.setFax(sc.nextInt());
+        cliente.setFax(sc.nextLine());
 
         if(clientes.insert(cliente)){
             System.out.println("idCliente: "+clientes.maximo()+", Codigo: "+cliente.getCodigo()+", Nombre:"+cliente.getEmpresa()+" Datos Insertados");
@@ -163,62 +164,88 @@ public class main {
                     System.out.println("11.- Fax");
                     System.out.println("------------------------------------");
                     
-                    System.out.print("\nIntroduzca la modificación  : ");
                     Integer opcion = Integer.parseInt(sc.nextLine());
-
-                switch (opcion) {
+                     ClientesDAO clientes = new ClientesDAO(); 
+                if(opcion>0 && opcion<12){
+                    System.out.print("Introduce la opcion que quieras modificar");
+                }
+                switch(opcion){
                     case 1:
-                     break;
+                        cliente.setCodigo(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 2:
-                              
-                    break;
+                        cliente.setEmpresa(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 3:
-                    
-                    break;
-                    
+                        cliente.setContacto(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 4:
-                   
-                    break;
-                    
+                        cliente.setCargo_contacto(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 5:
-                        
-                    break;
+                        cliente.setDireccion(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 6:
-                   
-                    break;
-                    
+                        cliente.setCiudad(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 7:
-                        
-                     break;   
+                        cliente.setRegion(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 8:
-                    
-                    break;
-                    
+                        cliente.setCp(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 9:
-                    
-                      break;  
-                     case 10:
-                   
-                    break;
-                    
+                        cliente.setPais(sc.next());
+                        clientes.update(cliente);
+                        break;
+                    case 10:
+                        cliente.setTelefono(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 11:
-                    
-                    break;
-                    
+                        cliente.setFax(sc.next());
+                        clientes.update(cliente);
+                        break;
                     case 0:
-                       
-                        System.out.println("Fin");
-                    break;
-                    
-                     }
-            } catch (NumberFormatException e) {
-                System.err.println("\nError: " + e.getMessage() + "\n");
+                        return;
+                    default:
+                        System.out.println("SOLO NUMEROS DEL 1 AL 11:");
+                        break;
+                }
+                
+            }catch(NumberFormatException e){
+                System.out.println("Introduce numeros:");
             }
         }
     }   
      public static void borrarDatosCliente() throws IOException{
-            ClientesDAO clientes = new ClientesDAO(); 
-             Scanner sc = new Scanner(System.in);
-             
-}
-}     
+          Scanner sc = new Scanner(System.in);
+        ClientesDAO clientes = new ClientesDAO();     
+      Integer id;
+        Boolean salida = true;
+        
+        System.out.println("Introduce el id del cliente que deseas eliminar");
+        do{
+            try{
+                id = sc.nextInt();
+                if(clientes.delete(id)){
+                    System.out.println("Cliente borrado");
+                }else{
+                    System.out.println("Error al borrar el cliente");
+                }
+                salida = false;
+            }catch(NumberFormatException exc){
+                System.out.println("Debes de introducir un numero");
+            }
+        }while(salida);
+    }
+    }
+                
