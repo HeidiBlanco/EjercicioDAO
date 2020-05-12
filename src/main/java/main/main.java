@@ -52,7 +52,7 @@ public class main {
                     break;
                     case 2:
                       sum-=10;//LOS 10 ANTERIORES
-                            if(sum<0){sum=0;
+                     if(sum<0){sum=0;
                    }
                     listaClientes(cliente,clientes,sum,10);
                    
@@ -95,6 +95,22 @@ public class main {
         });      
           System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------"); 
            
+    }
+        public static POJO confirmacion(){
+        Scanner sc = new Scanner(System.in); 
+        ClientesDAO clientes = new ClientesDAO();
+        POJO cliente = null;
+    
+        System.out.println("Indique el id del cliente :  ");
+        Integer id = sc.nextInt();
+        cliente = clientes.read(id);
+        if(cliente==null){
+            System.out.println("El Cliente no se encuentra en la tabla");
+        }else{
+            System.out.println("Cliente " + id + " CONFIRMADO");  
+        }    
+        return cliente;
+        
     }
    
  public static void introducirDatosCliente() throws IOException{ 
@@ -143,109 +159,125 @@ public class main {
         }
         public static void actualizarDatosCliente() throws IOException{
         Scanner sc = new Scanner(System.in);
-        POJO cliente = null;
+         POJO cliente = confirmacion();
+        ClientesDAO clientes = new ClientesDAO();
+        
         System.out.println("Introduce el ID del cliente que desea modificar : ");
         Integer id = Integer.parseInt(sc.nextLine());
-       
-        while (true) {
-            try { 
-                    System.out.println("\n MODIFICAR");
-                    System.out.println("------------------------------------");
-                    System.out.println("1.- Codigo");
-                    System.out.println("2.- Empresa");
-                    System.out.println("3.- Contacto");
-                    System.out.println("4.- Cargo");
-                    System.out.println("5.- Dirección ");
-                    System.out.println("6.- Ciudad");
-                    System.out.println("7.- Región");
-                    System.out.println("8.- Código Postal");
-                    System.out.println("9.- Pais");
-                    System.out.println("10.- Teléfono");
-                    System.out.println("11.- Fax");
-                    System.out.println("------------------------------------");
-                    
-                    Integer opcion = Integer.parseInt(sc.nextLine());
-                     ClientesDAO clientes = new ClientesDAO(); 
-                if(opcion>0 && opcion<12){
-                    System.out.print("Introduce la opcion que quieras modificar");
-                }
-                switch(opcion){
+        
+        cliente = clientes.read(id);
+         System.out.println("El cliente que ha elegido es: "+cliente.toString());
+           while(true){
+               try{
+                    Integer opcion = 0;
+                System.out.println("---------------------------------------|");
+                  System.out.println("1.- Codigo");
+                  System.out.println("2.- Empresa");
+                  System.out.println("3.- Contacto");
+                  System.out.println("4.- Cargo");
+                  System.out.println("5.- Dirección ");
+                  System.out.println("6.- Ciudad");
+                  System.out.println("7.- Región");
+                  System.out.println("8.- Código Postal");
+                  System.out.println("9.- Pais");
+                  System.out.println("10.- Teléfono");
+                  System.out.println("11.- Fax");
+                  System.out.println("0.- Salir");
+                  System.out.println("---------------------------------------|");
+                  
+                    while(true){
+                      try{
+                          System.out.print("\nIntroducir Modificacion");
+                        opcion = Integer.parseInt(sc.nextLine());
+                          
+                      break;
+                      }catch(InputMismatchException e){
+                          System.out.println("Has introducido un caracter, introduce un numero");
+                      }
+                  }
+               
+                  switch (opcion) {
                     case 1:
-                        cliente.setCodigo(sc.next());
+                        System.out.printf("Introducir modificacion del Codigo : ");
+                        cliente.setCodigo(sc.nextLine());
                         clientes.update(cliente);
                         break;
                     case 2:
-                        cliente.setEmpresa(sc.next());
+                        System.out.printf("Introducir modificacion de Empresa : ");
+                        cliente.setEmpresa(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 3:
-                        cliente.setContacto(sc.next());
+                        System.out.printf("Introducir modificacion de Contacto : ");
+                        cliente.setContacto(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 4:
-                        cliente.setCargo_contacto(sc.next());
+                        System.out.printf("Introducir modificacion de Cargo : ");
+                        cliente.setCargo_contacto(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 5:
-                        cliente.setDireccion(sc.next());
+                        System.out.printf("Introducir modificacion de Direccion : ");
+                        cliente.setDireccion(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 6:
-                        cliente.setCiudad(sc.next());
+                         System.out.printf("Introducir modificacion de Ciudad : ");
+                        cliente.setCiudad(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 7:
-                        cliente.setRegion(sc.next());
+                        System.out.printf("Introducir modificacion de Region : ");
+                        cliente.setRegion(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 8:
-                        cliente.setCp(sc.next());
+                        System.out.printf("Introducir modificacion de Codigo Postal : ");
+                        cliente.setCp(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 9:
-                        cliente.setPais(sc.next());
+                        System.out.printf("Introducir modificacion de Pais : ");
+                        cliente.setPais(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 10:
-                        cliente.setTelefono(sc.next());
+                        System.out.printf("Introducir modificacion de Telefono : ");
+                        cliente.setTelefono(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
                     case 11:
-                        cliente.setFax(sc.next());
+                        System.out.printf("Introducir modificacion de Fax : ");
+                        cliente.setFax(sc.nextLine());
                         clientes.update(cliente);
-                        break;
+                    break;
+                    
                     case 0:
-                        return;
+                     return;
                     default:
-                        System.out.println("SOLO NUMEROS DEL 1 AL 11:");
-                        break;
+                        System.out.println("\nSolo debe introducir números entre 0 y 11\n");
                 }
-                
-            }catch(NumberFormatException e){
+                }catch(NumberFormatException e){
                 System.out.println("Introduce numeros:");
+                
             }
-        }
-    }   
+             System.out.println("El cliente " + id + " ha sido modificado correctamente.");
+         }
+    }
+
      public static void borrarDatosCliente() throws IOException{
           Scanner sc = new Scanner(System.in);
-        ClientesDAO clientes = new ClientesDAO();     
-      Integer id;
-        Boolean salida = true;
-        
-        System.out.println("Introduce el id del cliente que deseas eliminar");
-        do{
-            try{
-                id = sc.nextInt();
-                if(clientes.delete(id)){
-                    System.out.println("Cliente borrado");
-                }else{
-                    System.out.println("Error al borrar el cliente");
-                }
-                salida = false;
-            }catch(NumberFormatException exc){
-                System.out.println("Debes de introducir un numero");
-            }
-        }while(salida);
+        ClientesDAO clientes = new ClientesDAO();
+          Integer id = Integer.parseInt(sc.next());
+       POJO cliente = confirmacion();
+         
+         if(cliente==null){
+             System.out.println("El Cliente seleccionado no se encuentra en la tabla");
+         }else{
+             clientes.delete(cliente.getId());
+             System.out.println("El cliente ha sido eliminado");
+         }
     }
     }
                 

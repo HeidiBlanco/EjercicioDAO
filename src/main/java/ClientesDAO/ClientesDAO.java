@@ -144,59 +144,59 @@ public class ClientesDAO {
         return resultado;
     }
      //MODIFICAR CLIENTES
-    public Boolean update(POJO cliente) {
+     public Boolean update(POJO cliente){
         Boolean resultado = null;
-        PreparedStatement stm = null;
-
-        if (this.conexion == null || cliente == null) {
+        PreparedStatement stmt = null;
+        
+        if(this.conexion==null||cliente==null){
             return false;
         }
-
-        try {
-            String sql = "UPDATE cliente SET codigo=?, empresa=?, contacto=?, cargo_contacto=?"
-            + ", direccion=?, ciudad=?, region=?, cp=?, pais=?, telefono=?, fax=? WHERE id=?";
-
-            stm = conexion.prepareStatement(sql);
+        
+        try{
+            String update = "UPDATE clientes SET codigo = ?, empresa = ?, contacto = ?, cargo_contacto = ?, direccion = ?, ciudad = ?, region = ?, cp = ?, pais = ?, telefono = ?, fax = ? WHERE id = ?";
             
-            stm.setString(1, cliente.getCodigo());
-            stm.setString(2, cliente.getEmpresa());
-            stm.setString(3, cliente.getContacto());
-            stm.setString(4, cliente.getCargo_contacto());
-            stm.setString(5, cliente.getDireccion());
-            stm.setString(6, cliente.getCiudad());
-            stm.setString(7, cliente.getRegion());
-            stm.setString(8, cliente.getCp());
-            stm.setString(9, cliente.getPais());
-            stm.setString(10, cliente.getTelefono());
-            stm.setString(11, cliente.getFax());
-            stm.setInt(12, cliente.getId());
+            stmt = conexion.prepareStatement(update);
+            stmt.setString(1, cliente.getCodigo());
+            stmt.setString(2, cliente.getEmpresa());
+            stmt.setString(3, cliente.getContacto());
+            stmt.setString(4, cliente.getCargo_contacto());
+            stmt.setString(5, cliente.getDireccion());
+            stmt.setString(6, cliente.getCiudad());
+            stmt.setString(7, cliente.getRegion());
+            stmt.setString(8, cliente.getCp());
+            stmt.setString(9, cliente.getPais());
+            stmt.setString(10, cliente.getTelefono());
+            stmt.setString(11, cliente.getFax());
             
-            stm.executeUpdate();
+            stmt.setInt(12, cliente.getId());
             
+            if(stmt.executeUpdate()>0){
+                resultado = true;
+            }
             
-        } catch (SQLException e) {
-            System.err.println("Error en el Update: " + e.getMessage());
-            
-        } finally {
-            try {
-                if (stm != null) {
-                    stm.close();
+        }catch(SQLException e){
+            System.out.println("Sentencia incorrecta en UPDATE : "+e.getMessage());
+        }finally{
+            try{
+                if(stmt!=null){
+                    stmt.close();
                 }
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }catch(SQLException e){
+                System.out.println("Error al cerrar la conexion: "+e.getMessage());
             }
         }
-
         return resultado;
-    }
-   public Boolean delete(Integer id) {
+     }
+
+    //BORRADO DE REGISTROS
+    public Boolean delete(Integer id) {
         Boolean resultado = false;
         PreparedStatement stm = null;
 
         try {
             String sql = "DELETE FROM clientes WHERE id = ?";
             stm = conexion.prepareStatement(sql);
-            stm.setInt(1, id);
+            stm.setInt(1,id);
 
             resultado = stm.execute();
 
@@ -212,7 +212,6 @@ public class ClientesDAO {
         return resultado;
 
     }
-
     //MAXIMO
         public Integer maximo() {
         POJO cliente = null;
