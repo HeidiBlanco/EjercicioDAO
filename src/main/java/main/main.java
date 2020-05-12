@@ -187,8 +187,9 @@ public class main {
                   
                     while(true){
                       try{
-                          System.out.print("\nIntroducir Modificacion");
-                        opcion = Integer.parseInt(sc.nextLine());
+                           System.out.print("\nIntroducir MODIFICACION : ");
+                          String opcion2 = sc.nextLine();
+                          opcion = Integer.parseInt(opcion2);
                           
                       break;
                       }catch(InputMismatchException e){
@@ -268,10 +269,10 @@ public class main {
 
      public static void borrarDatosCliente() throws IOException{
           Scanner sc = new Scanner(System.in);
+           POJO cliente = confirmacion();
+            String respuesta = "";
         ClientesDAO clientes = new ClientesDAO();
           Integer id = Integer.parseInt(sc.next());
-       POJO cliente = confirmacion();
-         
          if(cliente==null){
              System.out.println("El Cliente seleccionado no se encuentra en la tabla");
          }else{
