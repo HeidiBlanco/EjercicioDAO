@@ -45,14 +45,16 @@ public class main {
                 switch (opcion) {
                     case 1:
                      sum+=10;//LOS 1O SIGUIENTES
-                   if (sum >= clientes.maximo()){sum=0;
+                   if (sum >= clientes.maximo()){
+                       sum=0;
                    }
                     listaClientes(cliente,clientes,sum,10);
                               
                     break;
                     case 2:
                       sum-=10;//LOS 10 ANTERIORES
-                     if(sum<0){sum=0;
+                     if(sum<0){
+                         sum=0;
                    }
                     listaClientes(cliente,clientes,sum,10);
                    
@@ -71,7 +73,7 @@ public class main {
                     
                     case 0:
                         salir = true;
-                        System.out.println("Fin");
+                        System.out.println("FIN");
                     break;
                     
                     default:
@@ -81,14 +83,16 @@ public class main {
                 System.out.println("Debes insertar un número");
                 sc.next();
             }
+       
         }
+             System.out.println("\n");
     }
     
        
            public static void listaClientes(POJO cliente, ClientesDAO clientes,Integer desde,Integer hasta){
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------"); 
         				
-        System.out.println(" ID |  CODIGO    |         EMPRESA                    |        CONTACTO          |   CODIGO POSTAL   |    CIUDAD    |     PAIS      |     TELEFONO     |          FAX  "); 
+        System.out.println(" ID |  CODIGO    |         EMPRESA                    |        CONTACTO          |   CODIGO POSTAL   |    CIUDAD    |     PAIS      |     TELEFONO     |          FAX       | "); 
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");  
         clientes.lista(desde,hasta).forEach((cliente2) -> {                                                                                          
             System.out.println(cliente2);
@@ -166,23 +170,28 @@ public class main {
         Integer id = Integer.parseInt(sc.nextLine());
         
         cliente = clientes.read(id);
-         System.out.println("El cliente que ha elegido es: "+cliente.toString());
+        System.out.println("_______________________________________________________________________________________________________________________________________________________________________________________");
+         System.out.println("CLIENTE: "+cliente.toString());
+           System.out.println("_______________________________________________________________________________________________________________________________________________________________________________________");
+           System.out.println("\n");
            while(true){
                try{
                     Integer opcion = 0;
+                  System.out.println("---------------------------------------|");
+                  System.out.println("         ELIGUE MODIFICACION           |");   
                 System.out.println("---------------------------------------|");
-                  System.out.println("1.- Codigo");
-                  System.out.println("2.- Empresa");
-                  System.out.println("3.- Contacto");
-                  System.out.println("4.- Cargo");
-                  System.out.println("5.- Dirección ");
-                  System.out.println("6.- Ciudad");
-                  System.out.println("7.- Región");
-                  System.out.println("8.- Código Postal");
-                  System.out.println("9.- Pais");
-                  System.out.println("10.- Teléfono");
-                  System.out.println("11.- Fax");
-                  System.out.println("0.- Salir");
+                  System.out.println("1.- \t\tCodigo                 |");
+                  System.out.println("2.- \t\tEmpresa                |");
+                  System.out.println("3.- \t\tContacto               |");
+                  System.out.println("4.- \t\tCargo                  |");
+                  System.out.println("5.- \t\tDirección              |");
+                  System.out.println("6.- \t\tCiudad                 |");
+                  System.out.println("7.- \t\tRegión                 |");
+                  System.out.println("8.- \t\tCódigo Postal          |");
+                  System.out.println("9.- \t\tPais                   |");
+                  System.out.println("10.- \t\tTeléfono               |");
+                  System.out.println("11.- \t\tFax                    |");
+                  System.out.println("0.- \t\tSalir                  |");
                   System.out.println("---------------------------------------|");
                   
                     while(true){
@@ -255,7 +264,7 @@ public class main {
                     break;
                     
                     case 0:
-                     return;
+                      return;
                     default:
                         System.out.println("\nSolo debe introducir números entre 0 y 11\n");
                 }
@@ -270,7 +279,6 @@ public class main {
      public static void borrarDatosCliente() throws IOException{
           Scanner sc = new Scanner(System.in);
            POJO cliente = confirmacion();
-            String respuesta = "";
         ClientesDAO clientes = new ClientesDAO();
           Integer id = Integer.parseInt(sc.next());
          if(cliente==null){

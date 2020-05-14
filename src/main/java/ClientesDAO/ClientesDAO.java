@@ -219,6 +219,7 @@ public class ClientesDAO {
         Integer id = null;
         if (this.conexion == null) {
             return null;
+            
         }
         try {
             String query = "SELECT MAX(id) as maximo FROM `clientes`";
