@@ -276,7 +276,7 @@ public class main {
          }
     }
 
-     public static void borrarDatosCliente() throws IOException{
+   public static void borrarDatosCliente() throws IOException{
           Scanner sc = new Scanner(System.in);
            POJO cliente = confirmacion();
         ClientesDAO clientes = new ClientesDAO();
@@ -284,7 +284,7 @@ public class main {
          if(cliente==null){
              System.out.println("El Cliente seleccionado no se encuentra en la tabla");
          }else{
-             clientes.delete(cliente.getId());
+             clientes.delete (id);
              System.out.println("El cliente ha sido eliminado");
          }
     }
