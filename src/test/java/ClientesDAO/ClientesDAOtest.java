@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  * @author heidi
  */
 public class ClientesDAOtest {
-    ClientesDAO clientes;
+     ClientesDAO clientes;
     public ClientesDAOtest() {
     	clientes= new ClientesDAO();
     }
@@ -45,7 +45,6 @@ public class ClientesDAOtest {
         Connection Result1 = null;
         Connection result2 = instance.getConexion();
         assertNotEquals(Result1, result2);
-        fail("The test case is a prototype.");
     }
      
     @Test
@@ -58,18 +57,16 @@ public class ClientesDAOtest {
         ArrayList<POJO> Result1 = null;
         ArrayList<POJO> Result2 = instance.lista(desde, hasta);
         assertEquals(Result1, Result2);
-        fail("The test case is a prototype.");
     }
     @Test
     //LECTURA
     public void Read() {
         System.out.println("LECTURA");
-        Integer idCliente = null;
+        Integer id = null;
         ClientesDAO instance = new ClientesDAO();
-        POJO Result1 = null;
-        POJO Result2 = instance.read(idCliente);
+        POJO Result1 = new POJO(1,"GHSG","Alejandro Alvarez","Lola","4","Obere Str. 57","Berlín","NULL","12209","Alemania","653426783","030-0076545");
+        POJO Result2 = instance.read(id);
         assertEquals(Result1, Result2);
-        fail("The test case is a prototype.");
     }
     @Test
     //INSERTAR
@@ -80,7 +77,7 @@ public class ClientesDAOtest {
         Boolean Result1 = null;
         Boolean Result2 = instance.insert(clientes);
         assertEquals(Result1, Result2);
-        fail("The test case is a prototype.");
+      
     }
     @Test
     //MODIFICAR
@@ -92,7 +89,7 @@ public class ClientesDAOtest {
         Boolean Result1 = null;
          Boolean Result2 = instance.update(clientes);
         assertEquals(Result1, Result2);
-        fail("The test case is a prototype.");
+       
     }
     //BORRADO DE RESGISTROS
     @Test
@@ -103,7 +100,7 @@ public class ClientesDAOtest {
         Boolean Result1 = null;
         Boolean Result2 = instance.delete(id);
         assertEquals(Result1, Result2);
-        fail("The test case is a prototype.");
+
     }
 
     @Test
@@ -114,9 +111,7 @@ public class ClientesDAOtest {
         Integer Result1 = null;
         Integer Result2 = instance.maximo();
         assertEquals(Result1, Result2);
-        fail("The test case is a prototype.");
+      
     }
     
 }
-
-    
