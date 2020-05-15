@@ -14,14 +14,14 @@ public class POJO {
     public String codigo;
     public String empresa;
     public String contacto;
-     public String cp;
+      public String cargo_contacto;
+    public String direccion;
      public String ciudad;
+      public String region;
+     public String cp;
      public String pais;
     public String telefono;
     public String fax;
-    public String cargo_contacto;
-    public String direccion;
-    public String region;
 
     public POJO() {
     }
