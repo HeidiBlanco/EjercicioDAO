@@ -37,13 +37,12 @@ public class ClientesDAOtest {
     @BeforeClass
     public static void setUpClass() {
     }
-   @Test
+    @Test
    //ESTABLECER CONEXION
     public void conexion() {
         System.out.println("CONEXION");
-        ClientesDAO instance = new ClientesDAO();
         Connection Result1 = null;
-        Connection result2 = instance.getConexion();
+        Connection result2 = clientes.getConexion();
         assertNotEquals(Result1, result2);
     }
      
@@ -51,31 +50,29 @@ public class ClientesDAOtest {
     //LISTA
     public void Listar() {
         System.out.println("listaClientes");
-        Integer desde = null;
-        Integer hasta = null;
-        ClientesDAO instance = new ClientesDAO();
-        ArrayList<POJO> Result1 = null;
-        ArrayList<POJO> Result2 = instance.lista(desde, hasta);
-        assertEquals(Result1, Result2);
+        Integer desde = 0;
+        Integer hasta = 10;
+          POJO Result1 = null;
+        ArrayList<POJO> Result2 = clientes.lista(desde, hasta);
+        assertEquals(null, Result2);
     }
     @Test
     //LECTURA
     public void Read() {
         System.out.println("LECTURA");
-        Integer id = null;
-        ClientesDAO instance = new ClientesDAO();
-        POJO Result1 = new POJO(1,"GHSG","Alejandro Alvarez","Lola","4","Obere Str. 57","Berlín","NULL","12209","Alemania","653426783","030-0076545");
-        POJO Result2 = instance.read(id);
-        assertEquals(Result1, Result2);
+        Integer id = 4;
+        POJO Result1 = new POJO(4,"AROUT","Around the Horn", "Thomas Hardy","Representante de ventas","120 Hanover Sq","Londres","NULL","WA1 1DP" ,"Reino Unido","(71) 555-7788","(71) 555-6750");
+        POJO Result2 = clientes.read(id);
+        assertEquals(Result2.getId(),Result1.getId());
     }
     @Test
     //INSERTAR
     public void Insert() {
         System.out.println("INSERTAR");
-        POJO clientes = null;
+        POJO cliente = null;
         ClientesDAO instance = new ClientesDAO();
         Boolean Result1 = null;
-        Boolean Result2 = instance.insert(clientes);
+        Boolean Result2 = instance.insert(cliente);
         assertEquals(Result1, Result2);
       
     }
@@ -83,11 +80,9 @@ public class ClientesDAOtest {
     //MODIFICAR
     public void Update() {
         System.out.println("MODIFICAR");
-        Integer id  = null;
-        POJO clientes = null;
-        ClientesDAO instance = new ClientesDAO();
-        Boolean Result1 = null;
-         Boolean Result2 = instance.update(clientes);
+        POJO cliente = null;
+        Boolean Result1 = false;
+         Boolean Result2 = clientes.update(cliente);
         assertEquals(Result1, Result2);
        
     }
@@ -95,22 +90,20 @@ public class ClientesDAOtest {
     @Test
     public void Delete() {
         System.out.println("BORRADO DE REGISTROS");
-        Integer id = null;
-        ClientesDAO instance = new ClientesDAO();
-        Boolean Result1 = null;
-        Boolean Result2 = instance.delete(id);
+        Integer id = 1;
+        Boolean Result1 = false;
+        Boolean Result2;
+        Result2 = clientes.delete(id);
         assertEquals(Result1, Result2);
 
     }
-
-    @Test
+      @Test
     //MAXIMO
     public void Maximo() {
         System.out.println("MAXIMO");
-        ClientesDAO instance = new ClientesDAO();
-        Integer Result1 = null;
-        Integer Result2 = instance.maximo();
-        assertEquals(Result1, Result2);
+        Integer Result1 = 94;
+        Integer Result2 = clientes.maximo();
+        assertEquals(Result1,Result2 );
       
     }
     
