@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  * @author heidi
  */
 public class ClientesDAOtest {
-     ClientesDAO clientes;
+      ClientesDAO clientes;
     public ClientesDAOtest() {
     	clientes= new ClientesDAO();
     }
@@ -37,7 +37,7 @@ public class ClientesDAOtest {
     @BeforeClass
     public static void setUpClass() {
     }
-    @Test
+   @Test
    //ESTABLECER CONEXION
     public void conexion() {
         System.out.println("CONEXION");
@@ -52,9 +52,8 @@ public class ClientesDAOtest {
         System.out.println("listaClientes");
         Integer desde = 0;
         Integer hasta = 10;
-          POJO Result1 = null;
         ArrayList<POJO> Result2 = clientes.lista(desde, hasta);
-        assertEquals(null, Result2);
+        assertNotEquals(null, Result2);
     }
     @Test
     //LECTURA
@@ -69,10 +68,9 @@ public class ClientesDAOtest {
     //INSERTAR
     public void Insert() {
         System.out.println("INSERTAR");
-        POJO cliente = null;
-        ClientesDAO instance = new ClientesDAO();
-        Boolean Result1 = null;
-        Boolean Result2 = instance.insert(cliente);
+        POJO cliente = new POJO(98,"UWIUWE","RAMIREZ","Heidi Blanco","Nose","Pericles","Madrid",null,"28011","España","45135951","8952033");
+        Boolean Result1 = false;
+        Boolean Result2 = clientes.insert(cliente);
         assertEquals(Result1, Result2);
       
     }
@@ -80,9 +78,9 @@ public class ClientesDAOtest {
     //MODIFICAR
     public void Update() {
         System.out.println("MODIFICAR");
-        POJO cliente = null;
+       POJO cliente = null;
         Boolean Result1 = false;
-         Boolean Result2 = clientes.update(cliente);
+        Boolean Result2 = clientes.update(cliente);
         assertEquals(Result1, Result2);
        
     }
@@ -97,11 +95,12 @@ public class ClientesDAOtest {
         assertEquals(Result1, Result2);
 
     }
-      @Test
+
+    @Test
     //MAXIMO
     public void Maximo() {
         System.out.println("MAXIMO");
-        Integer Result1 = 94;
+        Integer Result1 = 95;
         Integer Result2 = clientes.maximo();
         assertEquals(Result1,Result2 );
       
